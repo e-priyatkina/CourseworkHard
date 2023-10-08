@@ -3,6 +3,7 @@ import java.util.Arrays;
 public class Main {
 
     public static void main(String[] args) {
+
         EmployeeBook book = new EmployeeBook();
 
         //добавление новых сотрудников
@@ -27,7 +28,7 @@ public class Main {
         //вывод всех ФИО
         book.printAllFIO();
 
-        System.out.println(Arrays.toString(book.indexSalary(1.07f)));
+        book.indexSalary(1.07f);//увеличение зарплаты
 
         System.out.println("Минимальная зарплата в 5 отделе: " + book.minimumSalaryDepartment(5));
 
@@ -37,10 +38,10 @@ public class Main {
 
         System.out.println("Средняя зарплата по отделу: " + book.averageSalaryDepartment(5));
 
-        System.out.println(Arrays.toString(book.indexSalaryDepartment(5,1.07f)));
+        book.indexSalaryDepartment(5,1.07f);//увеличение зарплаты в отделе
 
         System.out.println("Сотрудники 5го отдела:");
-        book.printEmployeesDepartment(2);
+        book.printEmployeesDepartment(5);
 
         //зарплата меньше числа
         book.lessNumber(20000);

@@ -68,7 +68,7 @@ public class EmployeeBook {
         }
     }
 
-    public Employee[] indexSalary(float index) { //увеличение зарплаты на %
+    public void indexSalary(float index) { //увеличение зарплаты на %
         for (Employee employee : employees) {
             if (employee == null) {
                 continue;
@@ -76,7 +76,6 @@ public class EmployeeBook {
                 employee.setSalary(employee.getSalary() * index);
             }
         }
-        return employees;
     }
 
     public Employee minimumSalaryDepartment (int department) { //минимальная зарплата по отделу
@@ -134,7 +133,7 @@ public class EmployeeBook {
         return average;
     }
 
-    public Employee[] indexSalaryDepartment(int department, float index) { //увеличение зарплаты в отделе
+    public void indexSalaryDepartment(int department, float index) { //увеличение зарплаты в отделе
 
         for (Employee employee : employees) {
             if (employee == null) {
@@ -143,7 +142,6 @@ public class EmployeeBook {
                 employee.setSalary(employee.getSalary() * index);
             }
         }
-        return employees;
     }
 
     public void printEmployeesDepartment(int department) { //вывод списка сотрудников отдела
