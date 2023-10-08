@@ -1,87 +1,226 @@
 public class EmployeeBook {
-    private Employee[] employees = new Employee[10];
 
-    public EmployeeBook() {
-        int i = 0;
-        employees[i] = new Employee("Комиссаров Абрам Ростиславович", 3, 64000);
-        i++;
-        employees[i] = new Employee("Николаев Адриан Миронович", 1, 51000);
-        i++;
-        employees[i] = new Employee(null, 0, 0);//new Employee("Воронова Мила Семёновна", 2, 72000);
-        i++;
-        employees[i] = new Employee("Щукина Тамара Яковлевна", 5, 95000);
-        i++;
-        employees[i] = new Employee(null, 0, 0);//new Employee("Казаков Виссарион Германович", 4, 78000);
-        i++;
-        employees[i] = new Employee("Евдокимова Нонна Альбертовна", 4, 67000);
-        i++;
-        employees[i] = new Employee("Титов Виссарион Глебович", 1, 63000);;
-        i++;
-        employees[i] = new Employee("Силина Иветта Даниловна", 3, 75000);
-        i++;
-        employees[i] = new Employee("Зыкова Эдуарда Аркадьевна", 2, 83000);
-        i++;
-        employees[i] = new Employee("Шаров Петр Христофорович", 5, 91000);
+    private final Employee[] employees = new Employee[10];
+
+    public void printAllEmployees() { //вывод списка всех сотрудников
+        for (Employee employee : employees) {
+            System.out.println(employee);
+        }
     }
 
-    public Employee[] getEmployees() {
-        return this.employees;
+    public float countAllSalary() { //сумма затрат на зарплаты
+        float allSalary = 0;
+        for (Employee employee : employees) {
+            if (employee == null) {
+                continue;
+            } else {
+                allSalary = allSalary + employee.getSalary();
+            }
+        }
+        return allSalary;
+    }
+
+    public Employee minimumSalary() { //минимальная зарплата
+        float min = Float.MAX_VALUE;
+        Employee employee = null;
+        for (Employee value : employees) {
+            if (value == null) {
+                continue;
+            } else if (value.getSalary() < min) {
+                min = value.getSalary();
+                employee = value;
+            }
+        }
+        return employee;
+    }
+
+    public Employee maximumSalary() { //максимальная зарплата
+        float max = Float.MIN_VALUE;
+        Employee employee = null;
+        for (Employee value : employees) {
+            if (value == null) {
+                continue;
+            } else if (value.getSalary() > max) {
+                max = value.getSalary();
+                employee = value;
+            }
+        }
+        return employee;
+    }
+
+    public float averageSalary() { //средняя зарплата
+        int k = 0; //кол-во сотрудников
+        for (Employee employee : employees) {
+            if (employee != null) {
+                k++;
+            }
+        }
+        return countAllSalary() / k;
+    }
+
+    public void printAllFIO() { //вывод всех ФИО
+        for (Employee employee : employees) {
+            if (employee == null) {
+                continue;
+            } else {
+                System.out.println(employee.getFullName());
+            }
+        }
+    }
+
+    public Employee[] indexSalary(float index) { //увеличение зарплаты на %
+        for (Employee employee : employees) {
+            if (employee == null) {
+                continue;
+            } else {
+                employee.setSalary(employee.getSalary() * index);
+            }
+        }
+        return employees;
+    }
+
+    public Employee minimumSalaryDepartment (int department) { //минимальная зарплата по отделу
+        float min = Float.MAX_VALUE;
+        Employee employee = null;
+        for (Employee value : employees) {
+            if (value == null) {
+                continue;
+            } else if (value.getSalary() < min && value.getDepartment() == department) {
+                min = value.getSalary();
+                employee = value;
+            }
+        }
+        return employee;
+    }
+
+    public Employee maximumSalaryDepartment(int department) { //максимальная зарплата по отделу
+        float max = Float.MIN_VALUE;
+        Employee employee = null;
+        for (Employee value : employees) {
+            if (value == null) {
+                continue;
+            } else if (value.getSalary() > max && value.getDepartment() == department) {
+                max = value.getSalary();
+                employee = value;
+            }
+        }
+        return employee;
+    }
+
+    public float countAllSalaryDepartment(int department) { //общая зарплата по отделу
+        float allSalary = 0;
+        for (Employee employee : employees) {
+            if (employee == null) {
+                continue;
+            } else if (employee.getDepartment() == department) {
+                allSalary = allSalary + employee.getSalary();
+            }
+        }
+        return allSalary;
+    }
+
+    public float averageSalaryDepartment(int department) { //средняя зарплата по отделу
+        float average = 0;
+        int k = 0; //количество сотрудников
+        for (Employee employee : employees) {
+            if (employee == null) {
+                continue;
+            } else if (employee.getDepartment() == department) {
+                average = countAllSalaryDepartment(department);
+                k++;
+            }
+        }
+        average = average / k;
+        return average;
+    }
+
+    public Employee[] indexSalaryDepartment(int department, float index) { //увеличение зарплаты в отделе
+
+        for (Employee employee : employees) {
+            if (employee == null) {
+                continue;
+            } else if (employee.getDepartment() == department) {
+                employee.setSalary(employee.getSalary() * index);
+            }
+        }
+        return employees;
+    }
+
+    public void printEmployeesDepartment(int department) { //вывод списка сотрудников отдела
+        for (Employee employee : employees) {
+            if (employee == null) {
+                continue;
+            } else if (employee.getDepartment() == department) {
+                System.out.println(employee.getId() + " " + employee.getFullName() + " " + employee.getSalary());
+            }
+        }
+    }
+
+    public void lessNumber(int number) { //зарплата меньше числа
+        for (Employee value : employees) {
+            if (value == null) {
+                continue;
+            } else if (value.getSalary() < number) {
+                System.out.println(value.getId() + " " + value.getFullName() + " " + value.getSalary());
+            }
+        }
+    }
+
+    public void moreNumber(int number) { //зарплата больше числа
+        for (Employee value : employees) {
+            if (value == null) {
+                continue;
+            } else if (value.getSalary() >= number) {
+                System.out.println(value.getId() + " " + value.getFullName() + " " + value.getSalary());
+            }
+        }
     }
 
     //добавление сотрудника
-    public Employee[] newEmployee (Employee newEmployee, Employee[] employees) {
+    public void newEmployee (Employee newEmployee) {
         for (int i = 0; i < employees.length; i++) {
-            if (employees[i].getFullName() == null) {
+            if (employees[i] == null) {
                 employees[i] = newEmployee;
                 break;
             }
         }
-        return employees;
     }
 
     //удаление сотрудника
-    public Employee[] deleteEmployee (String deleteEmployee, Employee[] employees)  {
+    public void deleteEmployee (int deleteId, String deleteEmployee)  {
         for (int i = 0; i < employees.length; i++) {
-            if (employees[i].getFullName() == null) {
-                continue;
-            } else if (employees[i].getFullName().equals(deleteEmployee)) {
-                    employees[i].setFullName(null);
-                    employees[i].setSalary(0);
-                    employees[i].setDepartment(0);
+            if (employees[i] != null && employees[i].getFullName().equals(deleteEmployee) &&
+                    employees[i].getId() == deleteId) {
+                employees[i] = null;
             }
         }
-        return employees;
     }
 
     //изменение зарплаты
-    public Employee[] changeSalaryEmployee(String fullNameEmployee, float salary, Employee[] employees) {
-        for (int i = 0; i < employees.length; i++) {
-            if (employees[i].getFullName() == null) {
-                continue;
-            } else if (employees[i].getFullName().equals(fullNameEmployee)) {
-                employees[i].setSalary(salary);
+    public void changeSalaryEmployee(String fullName, float salary) {
+        for (Employee employee : employees) {
+            if (employee != null && employee.getFullName().equals(fullName)) {
+                employee.setSalary(salary);
             }
         }
-        return employees;
     }
 
     //изменение отдела
-    public Employee[] changeDepartmentEmployee(String fullNameEmployee, int department, Employee[] employees) {
-        for (int i = 0; i < employees.length; i++) {
-            if (employees[i].getFullName() == null) {
-                continue;
-            } else if (employees[i].getFullName().equals(fullNameEmployee)) {
-                employees[i].setDepartment(department);
+    public void changeDepartmentEmployee(String fullName, int department) {
+        for (Employee employee : employees) {
+            if (employee != null && employee.getFullName().equals(fullName)) {
+                employee.setDepartment(department);
             }
         }
-        return employees;
     }
 
     //вывод сотрудников определенного отдела
-    public void allEmployeeDepartment(int department, Employee[] employees) {
-        for (int i = 0; i < employees.length; i++) {
-            if (employees[i].getDepartment() == department) {
-                System.out.println(employees[i].toString());
+    public void printAllEmployeeDepartment(int department) {
+        for (Employee employee : employees) {
+            if (employee == null) {
+                continue;
+            } else if (employee.getDepartment() == department) {
+                System.out.println(employee.getFullName());
             }
         }
     }
