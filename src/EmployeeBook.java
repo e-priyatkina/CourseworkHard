@@ -4,7 +4,9 @@ public class EmployeeBook {
 
     public void printAllEmployees() { //вывод списка всех сотрудников
         for (Employee employee : employees) {
-            System.out.println(employee);
+            if (employee != null) {
+                System.out.println(employee);
+            }
         }
     }
 
@@ -43,13 +45,19 @@ public class EmployeeBook {
     }
 
     public float averageSalary() { //средняя зарплата
+        float average;
         int k = 0; //кол-во сотрудников
         for (Employee employee : employees) {
             if (employee != null) {
                 k++;
             }
         }
-        return countAllSalary() / k;
+        if (k == 0) {
+            average = 0;
+        } else {
+            average = countAllSalary() / k;
+        }
+        return average;
     }
 
     public void printAllFIO() { //вывод всех ФИО
@@ -103,15 +111,18 @@ public class EmployeeBook {
     }
 
     public float averageSalaryDepartment(int department) { //средняя зарплата по отделу
-        float average = 0;
+        float average;
         int k = 0; //количество сотрудников
         for (Employee employee : employees) {
             if (employee != null && employee.getDepartment() == department) {
-                average = countAllSalaryDepartment(department);
                 k++;
             }
         }
-        average = average / k;
+        if (k == 0) {
+            average = 0;
+        } else {
+            average = countAllSalaryDepartment(department) / k;
+        }
         return average;
     }
 
@@ -159,11 +170,20 @@ public class EmployeeBook {
     }
 
     //удаление сотрудника
-    public void deleteEmployee (int deleteId, String deleteEmployee)  {
+    public void deleteEmployeeId (int deleteId)  {
         for (int i = 0; i < employees.length; i++) {
-            if (employees[i] != null && employees[i].getFullName().equals(deleteEmployee) &&
-                    employees[i].getId() == deleteId) {
+            if (employees[i] != null && employees[i].getId() == deleteId) {
                 employees[i] = null;
+                break;
+            }
+        }
+    }
+
+    public void deleteEmployeeFIO (String deleteFullName)  {
+        for (int i = 0; i < employees.length; i++) {
+            if (employees[i] != null && employees[i].getFullName().equals(deleteFullName)) {
+                employees[i] = null;
+                break;
             }
         }
     }
@@ -186,11 +206,14 @@ public class EmployeeBook {
         }
     }
 
-    //вывод сотрудников определенного отдела
-    public void printAllEmployeeDepartment(int department) {
-        for (Employee employee : employees) {
-            if (employee != null && employee.getDepartment() == department) {
-                System.out.println(employee.getFullName());
+    //вывод сотрудников по отделам
+    public void printEmployeesByDepartment() {
+        for (int i = 1; i <= 5; i++) {
+            System.out.println("Сотрудники " + i + "-го отдела");
+            for (Employee employee : employees) {
+                if (employee != null && employee.getDepartment() == i) {
+                    System.out.println(employee.getFullName());
+                }
             }
         }
     }

@@ -13,6 +13,8 @@ public class Main {
 
         book.newEmployee(new Employee("Иванов Иван Иванович", 2, 50000));
 
+        book.newEmployee(new Employee("Иванов Петр Иванович", 5, 60000));
+
 
         //вывод всех сотрудников
         book.printAllEmployees();
@@ -50,7 +52,8 @@ public class Main {
         book.moreNumber(20000);
 
         //удаление сотрудника
-        book.deleteEmployee(1,"Сидоров Алексей Александрович");
+        book.deleteEmployeeId(1);
+        book.deleteEmployeeFIO("Иванов Иван Иванович");
 
         //изменение зарплаты
         book.changeSalaryEmployee("Петров Петр Петрович", 70000);
@@ -59,17 +62,7 @@ public class Main {
         book.changeDepartmentEmployee("Петров Петр Петрович", 3);
 
         //вывод сотрудников отделов
-        System.out.println("Вывод сотрудников по отделам:");
-        System.out.println("1 отдел");
-        book.printAllEmployeeDepartment(1);
-        System.out.println("2 отдел");
-        book.printAllEmployeeDepartment(2);
-        System.out.println("3 отдел");
-        book.printAllEmployeeDepartment(3);
-        System.out.println("4 отдел");
-        book.printAllEmployeeDepartment(4);
-        System.out.println("5 отдел");
-        book.printAllEmployeeDepartment(5);
+        book.printEmployeesByDepartment();
 
     }
 }
